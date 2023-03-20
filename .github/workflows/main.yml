@@ -138,10 +138,10 @@ jobs:
         uses: Swatinem/rust-cache@v1.4.0
         with:
           sharedKey: full-build-cache
-      - name: Run clippy checks
-        uses: actions-rs/clippy-check@v1
+      - name: clippy
+        uses: actions-rs/cargo@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          command: clippy
           args: --all-features
 
   ci-success:
