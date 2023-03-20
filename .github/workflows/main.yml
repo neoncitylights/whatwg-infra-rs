@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# https://github.com/actions-rs/clippy-check/issues/167#issuecomment-1416772563
+permissions:
+  actions: write
+
 jobs:
   build:
     name: build
@@ -54,8 +58,14 @@ jobs:
       uses: Swatinem/rust-cache@v1.4.0
       with:
         sharedKey: full-build-cache
+    # https://github.com/actions-rs/tarpaulin/issues/15
+    # https://github.com/oscar-project/ungoliant/pull/90
+    # Temporary fix for "Error: Couldn't find a release tarball containing binaries for latest"
     - name: Run tests
       uses: actions-rs/tarpaulin@v0.1
+      with:
+        version: 0.22.0
+        args: "--avoid-cfg-tarpaulin"
     - name: Upload code coverage
       uses: codecov/codecov-action@v3
       with:
