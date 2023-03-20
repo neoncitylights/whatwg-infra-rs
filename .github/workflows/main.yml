@@ -65,7 +65,7 @@ jobs:
       uses: actions-rs/tarpaulin@v0.1
       with:
         version: 0.22.0
-        args: "--avoid-cfg-tarpualin"
+        args: "--avoid-cfg-tarpaulin"
     - name: Upload code coverage
       uses: codecov/codecov-action@v3
       with:
