@@ -12,7 +12,7 @@ create-missing = false
 edition = "2021"
 
 [output.html]
-git-repository-url = "https://github.com/nlp-rs/rust-template"
+git-repository-url = "https://github.com/acmuta-research/whatwg-infra-rs"
 
 [output.katex]
 [preprocessor.katex]
