@@ -41,12 +41,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Install Rust
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-        override: true
-        profile: minimal
-        components: llvm-tools-preview
+      run: |
+        rustup set profile minimal
+        rustup toolchain install stable
+        rustup override set stable
+        rustup component add llvm-tools-preview
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v2
       with:
