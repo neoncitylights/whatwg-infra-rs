@@ -120,3 +120,33 @@ pub const fn is_leading_surrogate_utf16(c: u16) -> bool {
 pub const fn is_trailing_surrogate_utf16(c: u16) -> bool {
 	matches!(c, u16::TRAILING_SURROGATE_MIN..=u16::TRAILING_SURROGATE_MAX)
 }
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn test_is_surrogate_utf16() {
+		assert_eq!(is_surrogate_utf16(0xD799u16), false);
+		assert_eq!(is_surrogate_utf16(0xD809u16), true);
+		assert_eq!(is_surrogate_utf16(0xDB99u16), true);
+		assert_eq!(is_surrogate_utf16(0xDFFFu16), true);
+		assert_eq!(0xE000u16.is_surrogate_utf16(), false);
+	}
+
+	#[test]
+	fn test_is_leading_surrogate_utf16() {
+		assert_eq!(is_leading_surrogate_utf16(0xD799u16), false);
+		assert_eq!(is_leading_surrogate_utf16(0xD800u16), true);
+		assert_eq!(is_leading_surrogate_utf16(0xDBFFu16), true);
+		assert_eq!(0xDC00u16.is_leading_surrogate_utf16(), false);
+	}
+
+	#[test]
+	fn test_is_trailing_surrogate_utf16() {
+		assert_eq!(is_trailing_surrogate_utf16(0xDB99u16), false);
+		assert_eq!(is_trailing_surrogate_utf16(0xDC00u16), true);
+		assert_eq!(is_trailing_surrogate_utf16(0xDFFFu16), true);
+		assert_eq!(0xE000u16.is_trailing_surrogate_utf16(), false);
+	}
+}
