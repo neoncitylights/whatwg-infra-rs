@@ -26,9 +26,9 @@ jobs:
         rustup toolchain install ${{ matrix.toolchain }}
         rustup override set ${{ matrix.toolchain }}
     - name: Cache dependencies
-      uses: Swatinem/rust-cache@v1.4.0
+      uses: Swatinem/rust-cache@v2
       with:
-        sharedKey: full-build-cache
+        shared-key: full-build-cache
     - name: Build
       run: cargo build --verbose
 
@@ -48,9 +48,9 @@ jobs:
         profile: minimal
         components: llvm-tools-preview
     - name: Cache dependencies
-      uses: Swatinem/rust-cache@v1.4.0
+      uses: Swatinem/rust-cache@v2
       with:
-        sharedKey: full-build-cache
+        shared-key: full-build-cache
     - name: Install cargo-llvm-codecov
       uses: taiki-e/install-action@cargo-llvm-cov
     - name: Generate code coverage
@@ -116,9 +116,9 @@ jobs:
           rustup override set stable
           rustup component add clippy
       - name: Cache dependencies
-        uses: Swatinem/rust-cache@v1.4.0
+        uses: Swatinem/rust-cache@v2
         with:
-          sharedKey: full-build-cache
+          shared-key: full-build-cache
       - name: clippy
         run: cargo clippy --all-features
 
