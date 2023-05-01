@@ -54,23 +54,21 @@ jobs:
         toolchain: stable
         override: true
         profile: minimal
+        components: llvm-tools-preview
     - name: Cache dependencies
       uses: Swatinem/rust-cache@v1.4.0
       with:
         sharedKey: full-build-cache
-    # https://github.com/actions-rs/tarpaulin/issues/15
-    # https://github.com/oscar-project/ungoliant/pull/90
-    # Temporary fix for "Error: Couldn't find a release tarball containing binaries for latest"
-    - name: Run tests
-      uses: actions-rs/tarpaulin@v0.1
-      with:
-        version: 0.22.0
-        args: "--avoid-cfg-tarpaulin"
+    - name: Install cargo-llvm-codecov
+      uses: taiki-e/install-action@cargo-llvm-cov
+    - name: Generate code coverage
+      run: cargo llvm-cov --all-features --workspace --lcov --output-path lcov.info
     - name: Upload code coverage
       uses: codecov/codecov-action@v3
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         verbose: true
+        files: lcov.info
 
   bench:
     name: bench
