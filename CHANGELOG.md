@@ -13,6 +13,7 @@
   - `whatwg_infra::is_noncharacter()`
 - Add `trim_collapse_ascii_whitespace()` to trim and remove consecutive ASCII whitespace
 - Add more extensive unit tests and documentation examples
+- Organize code into modules (`scalar`, `strings`, and `surrogates`) and re-export
 
 ## 0.1.0 (2023-03-20)
 
