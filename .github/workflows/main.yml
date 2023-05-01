@@ -108,9 +108,9 @@ jobs:
           profile: minimal
           components: rustfmt
       - name: Cache dependencies
-        uses: Swatinem/rust-cache@v1.4.0
+        uses: Swatinem/rust-cache@v2
         with:
-          sharedKey: full-build-cache
+          shared-key: full-build-cache
       - name: Check formatting/code style
         uses: actions-rs/cargo@v1
         with:
