@@ -209,12 +209,72 @@ mod test {
 	use super::*;
 
 	#[test]
+	fn test_normalize_newlines() {
+		assert_eq!(
+			"\ralice\r\n\r\nbob\r".normalize_newlines(),
+			String::from("\nalice\n\nbob\n")
+		);
+	}
+
+	#[test]
+	fn test_strip_newlines_empty() {
+		assert_eq!("\r\r\n\n\r\n".strip_newlines(), String::from(""));
+	}
+
+	#[test]
+	fn test_strip_newlines_empty2() {
+		assert_eq!("".strip_newlines(), String::new());
+	}
+
+	#[test]
+	fn test_strip_newlines_strings1() {
+		assert_eq!("Alice\n\rBob".strip_newlines(), String::from("AliceBob"));
+	}
+
+	#[test]
+	fn test_trim_ascii_whitespace_empty() {
+		assert_eq!("     ".trim_ascii_whitespace(), String::from(""));
+	}
+
+	#[test]
+	fn test_trim_ascii_whitespace_strings1() {
+		assert_eq!(
+			"  cats and dogs  ".trim_ascii_whitespace(),
+			String::from("cats and dogs")
+		);
+	}
+
+	#[test]
+	fn test_trim_collapse_ascii_whitespace() {
+		assert_eq!(
+			"\r  \n  cat dog  hamster".trim_collapse_ascii_whitespace(),
+			String::from("cat dog hamster")
+		);
+	}
+
+	#[test]
 	fn test_collect_codepoints_empty() {
-		let value = "";
 		let mut position = 0usize;
-		let collected = collect_codepoints(value, &mut position, |c| c.is_whitespace());
+		let collected = "".collect_codepoints(&mut position, |c| c.is_ascii_whitespace());
 
 		assert_eq!(collected, String::new());
+	}
+
+	#[test]
+	fn test_collect_codepoints_high_position() {
+		let mut position = 15usize;
+		let collected = "alice".collect_codepoints(&mut position, |c| c.is_alphabetic());
+
+		assert_eq!(collected, String::new());
+	}
+
+	#[test]
+	fn test_collect_codepoints_string2() {
+		let test = "test!!!!!";
+		let mut position = 0usize;
+		let collected = test.collect_codepoints(&mut position, |c| c.is_ascii_alphabetic());
+		assert_eq!(collected, String::from("test"));
+		assert_eq!(position, 4);
 	}
 
 	#[test]

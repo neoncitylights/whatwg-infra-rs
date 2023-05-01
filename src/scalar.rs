@@ -153,3 +153,37 @@ pub const fn is_c0_control_space(c: char) -> bool {
 pub const fn is_ascii_tab_newline(c: char) -> bool {
 	matches!(c, '\u{0009}' | '\u{000A}' | '\u{000D}')
 }
+
+#[cfg(test)]
+mod test {
+	use super::*;
+
+	#[test]
+	fn test_is_noncharacter() {
+		assert!(is_noncharacter('\u{FDD0}'));
+		assert!(is_noncharacter('\u{FDD1}'));
+		assert!(is_noncharacter('\u{FFFE}'));
+		assert!('\u{10FFFF}'.is_noncharacter());
+	}
+
+	#[test]
+	fn test_is_c0_control() {
+		assert!('\u{0000}'.is_c0_control());
+		assert!('\u{001E}'.is_c0_control());
+		assert!(is_c0_control('\u{001F}'));
+	}
+
+	#[test]
+	fn test_is_c0_control_space() {
+		assert!(is_c0_control_space(' '));
+		assert!('\u{0019}'.is_c0_control_space());
+	}
+
+	#[test]
+	fn test_is_ascii_tab_newline() {
+		assert!(is_ascii_tab_newline('\t'));
+		assert!(is_ascii_tab_newline('\r'));
+		assert!('\n'.is_ascii_tab_newline());
+		assert!(!is_ascii_tab_newline('a'));
+	}
+}
