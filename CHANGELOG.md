@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1 (2023-05-15)
+
+- Removed `#[must_use]` attribute from `collect_codepoints()`, to allow for use cases for skipping certain codepoints (e.g skipping ASCII whitespace)
+
 ## 0.2.0 (2023-04-30)
 
 - Added 3 new traits:
