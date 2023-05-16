@@ -175,7 +175,6 @@ pub fn trim_collapse_ascii_whitespace(s: &str) -> String {
 /// assert_eq!(collected, String::from("test"));
 /// assert_eq!(position, 4);
 /// ```
-#[must_use]
 pub fn collect_codepoints<P>(s: &str, position: &mut usize, mut predicate: P) -> String
 where
 	P: FnMut(char) -> bool,

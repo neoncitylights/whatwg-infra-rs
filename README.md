@@ -6,7 +6,12 @@
 [![Security audit](https://github.com/acmuta-research/whatwg-infra-rs/actions/workflows/security-audit.yml/badge.svg)](https://github.com/acmuta-research/whatwg-infra-rs/actions/workflows/security-audit.yml)
 [![codecov](https://codecov.io/gh/acmuta-research/whatwg-infra-rs/branch/main/graph/badge.svg?token=6ZSIWAQTHU)](https://codecov.io/gh/acmuta-research/whatwg-infra-rs)
 
-A tiny Rust crate that implements part of the WHATWG Infra Standard.
+A tiny Rust crate that implements parts of the WHATWG Infra Standard. Specifically, it implements the following:
+
+- [4.5. Code points](https://infra.spec.whatwg.org/#code-points)
+- [4.6. Strings](https://infra.spec.whatwg.org/#strings)
+
+It exposes a small set of primitives that are useful for parsing text into machine-readable data.
 
 ## Install
 
